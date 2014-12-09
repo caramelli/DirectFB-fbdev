@@ -1,0 +1,13 @@
+DirectFB wrapper for Linux Framebuffer applications
+---------------------------------------------------
+
+The DirectFB-fbdev package contains the dfbfbdev wrapper which starts the
+specified application and redirects frame buffer device access (/dev/fb0)
+to DirectFB calls.
+
+dfbfbdev uses the LD_PRELOAD environment variable, the fbdev wrapping is
+done in the libdfbfbdev.so library.
+
+Have fun,
+
+Nicolas Caramelli
