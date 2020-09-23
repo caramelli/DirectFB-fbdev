@@ -17,7 +17,6 @@
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#define _GNU_SOURCE
 #include <directfb.h>
 #include <linux/fb.h>
 
@@ -39,12 +38,8 @@ int open(const char *file, int oflag, ...)
 
   if (fb_fd == -1 && strstr(file, "/dev/fb")) {
     fb_fd = open("/dev/null", oflag);
-    int argc = 2;
-    char **argv = malloc(2 * sizeof(char *));
-    argv[0] = "directfb-fbdev";
-    argv[1] = "--dfb:no-vt";
-    DirectFBInit(&argc, &argv);
-    free(argv);
+    DirectFBInit(NULL, NULL);
+    DirectFBSetOption("no-vt", NULL);
     DirectFBCreate(&dfb);
     dfb->SetCooperativeLevel(dfb, DFSCL_FULLSCREEN);
     DFBSurfaceDescription dsc;
@@ -98,6 +93,13 @@ int ioctl(int fd, unsigned long request, ...)
             fb_var->green.offset = 8;
             fb_var->red.length = fb_var->green.length = fb_var->blue.length = 8;
             break;
+          case DSPF_RGB32:
+            fb_var->bits_per_pixel = 32;
+            fb_var->transp.offset = 24;
+            fb_var->red.offset = 16;
+            fb_var->green.offset = 8;
+            fb_var->transp.length = fb_var->red.length = fb_var->green.length = fb_var->blue.length = 8;
+            break;
           default:
             errno = EINVAL;
             return -1;
@@ -117,6 +119,10 @@ int ioctl(int fd, unsigned long request, ...)
           case DSPF_RGB24:
             fb_fix->smem_len = 3 * width * height;
             fb_fix->line_length = 3 * width;
+            break;
+          case DSPF_RGB32:
+            fb_fix->smem_len = 4 * width * height;
+            fb_fix->line_length = 4 * width;
             break;
           default:
             errno = EINVAL;
