@@ -1,3 +1,15 @@
+commit 04897ffed55b97dd4a5e7f67ee88ccd1e81be704
+Author: Nicolas Caramelli <caramelli.devel@gmail.com>
+Date:   Wed Sep 23 15:02:54 2020 +0200
+
+    32 bits support
+
+commit 269a224c221ac83d503046892011cb5fe803fb5d
+Author: Nicolas Caramelli <caramelli.devel@gmail.com>
+Date:   Wed Sep 23 14:10:21 2020 +0200
+
+    update ChangeLog
+
 commit 440c089b86671ddbbc9780313250940e39abf87a
 Author: Nicolas Caramelli <caramelli.devel@gmail.com>
 Date:   Tue Dec 9 10:37:15 2014 +0100
